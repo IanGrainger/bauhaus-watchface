@@ -65,15 +65,16 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+        
+        dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
         var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
         
-        var conChar = "/";
-        if(getConnectionAvailable()) {conChar = "+";}
-        dc.drawText(0, dc.getHeight()/2, font8Bit, conChar, Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
         
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
 //        var view = View.findDrawableById("TimeLabel");
@@ -108,20 +109,18 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	}
 	
 	function getSteps() {
-		// get ActivityMonitor info
 		var info = ActivityMonitor.getInfo();
-		
 		var steps = info.steps;
-		System.println("You have taken: " + steps);
 		return steps;
 	}
 	
+	function getCaloriesStr() {
+		return "("+getCalories();
+	}
+	
 	function getCalories() {
-		// get ActivityMonitor info
 		var info = ActivityMonitor.getInfo();
-		
 		var calories = info.calories;
-		System.println("You have burned: " + calories + " calories!");
 		return calories;
 	}
 	
@@ -137,7 +136,10 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		var mySettings = Sys.getDeviceSettings();
 		return mySettings.notificationCount;
 	}
-	
+	function getConnectionStr() {
+        if(getConnectionAvailable()) {return "$";}
+        else {return "X";}
+	}
 	function getConnectionAvailable() {
 		var mySettings = Sys.getDeviceSettings();
 		return mySettings.phoneConnected;
