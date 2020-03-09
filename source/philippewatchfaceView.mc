@@ -8,14 +8,16 @@ using Toybox.Time.Gregorian;
 class philippewatchfaceView extends WatchUi.WatchFace {
 	var fontPhillipe = null;
 	var fontBerlin = null;
+	var font8Bit = null;
     function initialize() {
         WatchFace.initialize();
     }
 
     // Load your resources here
     function onLayout(dc) {
-    	fontPhillipe = WatchUi.loadResource(Rez.Fonts.phillipe96);
+    	fontPhillipe = WatchUi.loadResource(Rez.Fonts.philippeH);
     	fontBerlin = WatchUi.loadResource(Rez.Fonts.berlin);
+    	font8Bit = WatchUi.loadResource(Rez.Fonts.eightBit);
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
 
@@ -40,9 +42,10 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         	}
         }
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        //var min = 58;//clockTime.min;
 		var dateString = Lang.format(
 //		    "$1$:$2$:$3$ $4$ $5$ $6$ $7$",
-			"$1$ $2$ $3$",
+			"$1$\n$2$\n$3$",
 		    [
 //		        today.hour,
 //		        today.min,
@@ -58,10 +61,11 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		        
         // Forerunner 735xt height 180/width 215
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2-80, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
-        //dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth()/2, 15, fontBerlin, dateString, Gfx.TEXT_JUSTIFY_CENTER);
-        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2-10, fontPhillipe, Lang.format("$1$", [clockTime.min.format("%02d")]), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(dc.getWidth()-10, 36, font8Bit, dateString, Gfx.TEXT_JUSTIFY_RIGHT);
         dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
         dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
