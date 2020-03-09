@@ -1,6 +1,7 @@
 using Toybox.Application;
+using Toybox.WatchUi;
 
-class SuperDigitalApp extends Application.AppBase {
+class philippewatchfaceApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
@@ -16,7 +17,12 @@ class SuperDigitalApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new SuperDigitalView() ];
+        return [ new philippewatchfaceView() ];
+    }
+
+    // New app settings have been received so trigger a UI update
+    function onSettingsChanged() {
+        WatchUi.requestUpdate();
     }
 
 }

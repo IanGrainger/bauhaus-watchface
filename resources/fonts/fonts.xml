@@ -1,7 +1,4 @@
 <fonts>
-<!-- Bauhaus smaller is 96px high! -->
-<font id="customFont" filename="bauhaus-smaller.fnt" filter="0123456789" />
-<!--  Berlin is 14px high -->
 <font id="berlin" filename="berlin-sans-fb-demi-14-full.fnt" />
 <font id="phillipe96" filename="phillipe96.fnt" filter="0123456789"/>
 </fonts>
