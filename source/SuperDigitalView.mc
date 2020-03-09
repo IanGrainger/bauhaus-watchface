@@ -2,9 +2,11 @@ using Toybox.WatchUi;
 using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Lang;
+using Toybox.Time;
+using Toybox.Time.Gregorian;
 
 class SuperDigitalView extends WatchUi.WatchFace {
-	var customFont = null;
+	var fontPhillipe = null;
 	var fontBerlin = null;
     function initialize() {
         WatchFace.initialize();
@@ -12,7 +14,7 @@ class SuperDigitalView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc) {
-    	customFont = WatchUi.loadResource(Rez.Fonts.customFont);
+    	fontPhillipe = WatchUi.loadResource(Rez.Fonts.phillipe96);
     	fontBerlin = WatchUi.loadResource(Rez.Fonts.berlin);
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
@@ -37,13 +39,32 @@ class SuperDigitalView extends WatchUi.WatchFace {
         	hour = 12;
         	}
         }
+        var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+		var dateString = Lang.format(
+//		    "$1$:$2$:$3$ $4$ $5$ $6$ $7$",
+			"$1$ $2$ $3$",
+		    [
+//		        today.hour,
+//		        today.min,
+//		        today.sec,
+		        today.day_of_week,
+		        today.day,
+		        today.month
+		        //,
+//		        today.year
+		    ]
+		);
+		//Sys.println(dateString); // e.g. "16:28:32 Wed 1 Mar 2017"
+		        
+        // Forerunner 735xt height 180/width 215
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2-80, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(dc.getWidth()/2, 15, fontBerlin, dateString, Gfx.TEXT_JUSTIFY_CENTER);
+        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2-10, fontPhillipe, Lang.format("$1$", [clockTime.min.format("%02d")]), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
+        dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
-        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_BLACK);
-        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2-80, customFont, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.setColor(Gfx.COLOR_BLUE, Gfx.COLOR_BLACK);
-        dc.drawText(dc.getWidth()/2+50, dc.getHeight()/2, customFont, Lang.format("$1$", [clockTime.min.format("%02d")]), Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_BLACK);
-        dc.drawText(dc.getWidth()/2, dc.getHeight()/2, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
 //        var view = View.findDrawableById("TimeLabel");
 //        view.setText(timeString);
