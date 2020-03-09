@@ -68,9 +68,12 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
-        var infoStr = dateString + "\nHR\n" + getHR();
+        var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
         
+        var conChar = "/";
+        if(getConnectionAvailable()) {conChar = "+";}
+        dc.drawText(0, dc.getHeight()/2, font8Bit, conChar, Gfx.TEXT_JUSTIFY_LEFT);
         
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
 //        var view = View.findDrawableById("TimeLabel");
@@ -99,7 +102,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		var hrIterator = ActivityMonitor.getHeartRateHistory(null, true);
 		var next = hrIterator.next();
 		if(next == null)
-		{	return 0;}
+			{return 0;}
 		else
 			{return next.heartRate;}
 	}
@@ -121,7 +124,25 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		System.println("You have burned: " + calories + " calories!");
 		return calories;
 	}
+	
+	function getNotificationStr() {
+		var notificationCount = getNotificationCount();
+		if(notificationCount == 0) { return "";}
+		if(notificationCount == 1) { return "#  ";}
+		if(notificationCount > 9) { return "#" + notificationCount;}
+		else {return "#" + notificationCount + " ";}
 	}
+	
+	function getNotificationCount() {
+		var mySettings = Sys.getDeviceSettings();
+		return mySettings.notificationCount;
+	}
+	
+	function getConnectionAvailable() {
+		var mySettings = Sys.getDeviceSettings();
+		return mySettings.phoneConnected;
+	}
+}
 
 //using Toybox.WatchUi;
 //using Toybox.Graphics;
