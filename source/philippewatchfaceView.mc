@@ -83,8 +83,8 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.setColor(colorFg, Gfx.COLOR_TRANSPARENT);
         
         var middleLeftOffset = 25;
-        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-58, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2+14, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
         dc.drawText(5, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
 
@@ -156,11 +156,12 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	}
 	
 	function getNotificationStr() {
+		var notificationChar = "@";
 		var notificationCount = getNotificationCount();
 		if(notificationCount == 0) { return "";}
-		if(notificationCount == 1) { return "#  ";}
-		if(notificationCount > 9) { return "#" + notificationCount;}
-		else {return "#" + notificationCount + " ";}
+		if(notificationCount == 1) { return  notificationChar + " ";}
+		if(notificationCount > 9) { return notificationChar + notificationCount;}
+		else {return notificationChar + notificationCount + " ";}
 	}
 	
 	function getNotificationCount() {
