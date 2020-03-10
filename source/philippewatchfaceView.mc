@@ -10,7 +10,11 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	var fontPhillipe = null;
 	var fontBerlin = null;
 	var font8Bit = null;
-	var font9Pin = null; 
+	var font9Pin = null;
+	var app = null;
+	var colorFg = 0xFFFFFF;
+	var colorBg = 0x000000;
+	
     function initialize() {
         WatchFace.initialize();
     }
@@ -21,6 +25,12 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     	fontBerlin = WatchUi.loadResource(Rez.Fonts.berlin);
     	font8Bit = WatchUi.loadResource(Rez.Fonts.eightBit);
     	font9Pin = WatchUi.loadResource(Rez.Fonts.ninePin);
+    	
+    	app = Application.getApp();
+    	colorFg = app.getProperty("ForegroundColor");
+    	colorBg = app.getProperty("BackgroundColor");
+    	
+    	System.println(colorFg);
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
 
@@ -33,7 +43,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     // Update the view
     function onUpdate(dc) {
     	
-    	dc.setColor(Gfx.COLOR_BLACK, Gfx.COLOR_BLACK);
+    	dc.setColor(colorBg, colorBg);
     	dc.clear();
         // Get and show the current time
         var clockTime = System.getClockTime();
@@ -67,7 +77,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
         dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
-        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
+        dc.setColor(colorFg, Gfx.COLOR_TRANSPARENT);
         
         var middleLeftOffset = 26;
         dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
