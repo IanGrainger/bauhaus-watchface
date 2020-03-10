@@ -68,12 +68,12 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-        
+        dc.drawText(10+20,13, font8Bit, getBatteryStr() + " ", Gfx.TEXT_JUSTIFY_LEFT);
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
-//        drawInfo8Bit(dc, dateString);
-		drawInfo9Pin(dc, dateString);
+        drawInfo8Bit(dc, dateString);
+//		drawInfo9Pin(dc, dateString);
         
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
 //        var view = View.findDrawableById("TimeLabel");
@@ -153,13 +153,25 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		var mySettings = Sys.getDeviceSettings();
 		return mySettings.notificationCount;
 	}
+	
 	function getConnectionStr() {
         if(getConnectionAvailable()) {return "$";}
         else {return "X";}
 	}
+	
 	function getConnectionAvailable() {
 		var mySettings = Sys.getDeviceSettings();
 		return mySettings.phoneConnected;
+	}
+	
+	function getBatteryStr() {
+		var batteryPercent = getBatteryPercentage();
+		return batteryPercent.format("%2d") + "%";
+	}
+	
+	function getBatteryPercentage() {
+		var myStats = Sys.getSystemStats();
+		return myStats.battery;
 	}
 }
 
