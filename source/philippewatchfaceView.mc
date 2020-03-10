@@ -14,6 +14,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	var app = null;
 	var colorFg = 0xFFFFFF;
 	var colorBg = 0x000000;
+	var showCalories = false;
 	
     function initialize() {
         WatchFace.initialize();
@@ -29,8 +30,8 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     	app = Application.getApp();
     	colorFg = app.getProperty("ForegroundColor");
     	colorBg = app.getProperty("BackgroundColor");
+    	showCalories = app.getProperty("ShowCalories");
     	
-    	System.println(colorFg);
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
 
@@ -97,15 +98,17 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     }
     
     function drawInfo9Pin(dc, dateString) {
-        dc.drawText(dc.getWidth()-10,13, font9Pin, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
-        
+    	if(showCalories) {
+        	dc.drawText(dc.getWidth()-10,13, font9Pin, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        }
         var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font9Pin, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
     }
     
     function drawInfo8Bit(dc, dateString) {
-        dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
-        
+    	if(showCalories) {
+        	dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        }
 		var infoStr = dateString + "\n" + getHR() + "\\\n" + getBatteryStr() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
     }

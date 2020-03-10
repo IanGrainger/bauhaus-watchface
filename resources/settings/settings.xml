@@ -18,4 +18,8 @@
         </settingConfig>
     </setting>
 
+    <setting propertyKey="@Properties.ShowCalories" title="@Strings.ShowCalories">
+        <settingConfig type="boolean" />
+    </setting>
+
 </settings>
