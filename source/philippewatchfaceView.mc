@@ -28,9 +28,11 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     	font9Pin = WatchUi.loadResource(Rez.Fonts.ninePin);
     	
     	app = Application.getApp();
-    	colorFg = app.getProperty("ForegroundColor");
+    	// OVERRIDE FOREGROUND
+//    	colorFg = app.getProperty("ForegroundColor");
     	colorBg = app.getProperty("BackgroundColor");
-    	showCalories = app.getProperty("ShowCalories");
+    	// OVERRIDE CALORIES
+    	//showCalories = app.getProperty("ShowCalories");
     	
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
@@ -75,16 +77,16 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		//Sys.println(dateString); // e.g. "16:28:32 Wed 1 Mar 2017"
 		        
         // Forerunner 735xt height 180/width 215
-        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
+//        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
+//        dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(colorFg, Gfx.COLOR_TRANSPARENT);
         
-        var middleLeftOffset = 26;
+        var middleLeftOffset = 25;
         dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
-        dc.drawText(0, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
+        dc.drawText(5, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
 
         drawInfo8Bit(dc, dateString);
 //		drawInfo9Pin(dc, dateString);
