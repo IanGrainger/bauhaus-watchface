@@ -10,6 +10,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	var fontPhillipe = null;
 	var fontBerlin = null;
 	var font8Bit = null;
+	var font9Pin = null; 
     function initialize() {
         WatchFace.initialize();
     }
@@ -19,6 +20,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     	fontPhillipe = WatchUi.loadResource(Rez.Fonts.philippeH);
     	fontBerlin = WatchUi.loadResource(Rez.Fonts.berlin);
     	font8Bit = WatchUi.loadResource(Rez.Fonts.eightBit);
+    	font9Pin = WatchUi.loadResource(Rez.Fonts.ninePin);
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
 
@@ -42,6 +44,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         	hour = 12;
         	}
         }
+        
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
         //var min = 58;//clockTime.min;
 		var dateString = Lang.format(
@@ -66,15 +69,11 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
         
-        dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
-        
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
         dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
-        var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
-        dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
-        
-        dc.drawText(0, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
+//        drawInfo8Bit(dc, dateString);
+		drawInfo9Pin(dc, dateString);
         
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
 //        var view = View.findDrawableById("TimeLabel");
@@ -82,6 +81,24 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 
         // Call the parent onUpdate function to redraw the layout
         //View.onUpdate(dc);
+    }
+    
+    function drawInfo9Pin(dc, dateString) {
+        dc.drawText(dc.getWidth()-10,13, font9Pin, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        
+        var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
+        dc.drawText(dc.getWidth()-10, 36, font9Pin, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
+        
+        dc.drawText(0, dc.getHeight()/2, font9Pin, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
+    }
+    
+    function drawInfo8Bit(dc, dateString) {
+        dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        
+        var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
+        dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
+        
+        dc.drawText(0, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
     }
 
     // Called when this View is removed from the screen. Save the
