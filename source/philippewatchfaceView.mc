@@ -112,7 +112,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         	dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
         }
 		var infoStr = dateString + "\n" + getHR() + "\\\n" + getBatteryStr() + "\n" + getNotificationStr();
-        dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth()-11, 33, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
     }
 
     // Called when this View is removed from the screen. Save the
