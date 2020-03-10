@@ -65,13 +65,14 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
-        dc.drawText(10+20,13, font8Bit, getBatteryStr() + " ", Gfx.TEXT_JUSTIFY_LEFT);
+        
         dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
         
-        dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(dc.getWidth()/2+43-20, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
+        var middleLeftOffset =26;
+        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-55, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2+11+4, fontPhillipe, clockTime.min.format("%02d"), Gfx.TEXT_JUSTIFY_RIGHT);
         
-        var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
+        var infoStr = dateString + "\n" + getHR() + "\\\n" + getBatteryStr() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
         
         dc.drawText(0, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
