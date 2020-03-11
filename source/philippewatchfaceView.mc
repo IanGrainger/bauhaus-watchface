@@ -22,7 +22,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc) {
-    	fontPhillipe = WatchUi.loadResource(Rez.Fonts.philippeH);
+    	fontPhillipe = WatchUi.loadResource(Rez.Fonts.philippe96Solid);
     	fontBerlin = WatchUi.loadResource(Rez.Fonts.berlin);
     	font8Bit = WatchUi.loadResource(Rez.Fonts.eightBit);
     	font9Pin = WatchUi.loadResource(Rez.Fonts.ninePin);

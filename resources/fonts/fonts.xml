@@ -2,6 +2,7 @@
 	<font id="berlin" filename="berlin-sans-fb-demi-14-full.fnt" />
 	<font id="phillipe96" filename="phillipe96.fnt" filter="0123456789" />
 	<font id="philippeH" filename="philippe-horizontal.fnt" filter="0123456789" />
+	<font id="philippe96Solid" filename="phillipe-96-solid.fnt" filter="0123456789" />
 	<font id="eightBit" filename="8bit20-$-f.fnt" />
 	<font id="ninePin" filename="9pin9-16.fnt" />
 </fonts>
