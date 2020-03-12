@@ -22,4 +22,8 @@
         <settingConfig type="boolean" />
     </setting>
 
+    <setting propertyKey="@Properties.NumericDate" title="@Strings.NumericDate">
+        <settingConfig type="boolean" />
+    </setting>
+
 </settings>

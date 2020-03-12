@@ -15,6 +15,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	var colorFg = 0xFFFFFF;
 	var colorBg = 0x000000;
 	var showCalories = false;
+	var numericDate = false;
 	
     function initialize() {
         WatchFace.initialize();
@@ -28,11 +29,11 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     	font9Pin = WatchUi.loadResource(Rez.Fonts.ninePin);
     	
     	app = Application.getApp();
-    	// OVERRIDE FOREGROUND
-//    	colorFg = app.getProperty("ForegroundColor");
+    	
+    	colorFg = app.getProperty("ForegroundColor");
     	colorBg = app.getProperty("BackgroundColor");
-    	// OVERRIDE CALORIES
-    	//showCalories = app.getProperty("ShowCalories");
+    	showCalories = app.getProperty("ShowCalories");
+    	numericDate = app.getProperty("NumericDate");
     	
         //setLayout(Rez.Layouts.WatchFace(dc));
     }
@@ -58,24 +59,6 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         	}
         }
         
-        var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
-        //var min = 58;//clockTime.min;
-		var dateString = Lang.format(
-//		    "$1$:$2$:$3$ $4$ $5$ $6$ $7$",
-			"$1$\n$2$\n$3$",
-		    [
-//		        today.hour,
-//		        today.min,
-//		        today.sec,
-		        today.day_of_week,
-		        today.day,
-		        today.month
-		        //,
-//		        today.year
-		    ]
-		);
-		//Sys.println(dateString); // e.g. "16:28:32 Wed 1 Mar 2017"
-		        
         // Forerunner 735xt height 180/width 215
 //        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
 //        dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
@@ -88,7 +71,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         
         dc.drawText(5, dc.getHeight()/2, font8Bit, getConnectionStr(), Gfx.TEXT_JUSTIFY_LEFT);
 
-        drawInfo8Bit(dc, dateString);
+        drawInfo8Bit(dc, getDateStr());
 //		drawInfo9Pin(dc, dateString);
         
 //        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
@@ -97,6 +80,28 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 
         // Call the parent onUpdate function to redraw the layout
         //View.onUpdate(dc);
+    }
+    
+    function getDateStr() {
+    	if(numericDate) {
+        	var today = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+    	return Lang.format(
+				"$1$\n$2$",
+			    [
+			        today.day,
+			        today.month
+			    ]
+			);
+    	}
+    	var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        	return Lang.format(
+				"$1$\n$2$\n$3$",
+			    [
+					today.day_of_week.substring(0, 3),
+			        today.day,
+			        today.month
+			    ]
+			);
     }
     
     function drawInfo9Pin(dc, dateString) {

@@ -14,5 +14,7 @@
     <string id="ColorRed">Red</string>
     
     <string id="ShowCalories">Show Calories</string>
+    
+    <string id="NumericDate">Numeric Date Display</string>
 
 </strings>
