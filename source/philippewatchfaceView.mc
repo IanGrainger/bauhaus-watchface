@@ -14,7 +14,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 	var app = null;
 	var colorFg = 0xFFFFFF;
 	var colorBg = 0x000000;
-	var showCalories = false;
+	var showCalories = true;
 	var numericDate = false;
 	
     function initialize() {
@@ -61,9 +61,9 @@ class philippewatchfaceView extends WatchUi.WatchFace {
         
         // Forerunner 735xt height 180/width 215
 //        dc.setColor(Gfx.COLOR_RED, Gfx.COLOR_TRANSPARENT);
-//        dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(colorFg, Gfx.COLOR_TRANSPARENT);
+        //dc.drawText(dc.getWidth()/2, 0, fontBerlin, "ian.grainger@gmail.com", Gfx.TEXT_JUSTIFY_CENTER);
         
         var middleLeftOffset = 25;
         dc.drawText(dc.getWidth()/2+43-middleLeftOffset, dc.getHeight()/2-58, fontPhillipe, hour.toString(), Gfx.TEXT_JUSTIFY_RIGHT);
@@ -106,7 +106,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     
     function drawInfo9Pin(dc, dateString) {
     	if(showCalories) {
-        	dc.drawText(dc.getWidth()-10,13, font9Pin, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        	dc.drawText(dc.getWidth()-10,10, font9Pin, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
         }
         var infoStr = dateString + "\nHR\n" + getHR() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-10, 36, font9Pin, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
@@ -114,7 +114,7 @@ class philippewatchfaceView extends WatchUi.WatchFace {
     
     function drawInfo8Bit(dc, dateString) {
     	if(showCalories) {
-        	dc.drawText(dc.getWidth()-10,13, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
+        	dc.drawText(dc.getWidth()-10,10, font8Bit, getCaloriesStr() + " ", Gfx.TEXT_JUSTIFY_RIGHT);
         }
 		var infoStr = dateString + "\n" + getHR() + "\\\n" + getBatteryStr() + "\n" + getNotificationStr();
         dc.drawText(dc.getWidth()-11, 33, font8Bit, infoStr, Gfx.TEXT_JUSTIFY_RIGHT);
