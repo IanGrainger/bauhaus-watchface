@@ -138,8 +138,8 @@ class philippewatchfaceView extends WatchUi.WatchFace {
 		// get a HeartRateIterator object; oldest sample first
 		var hrIterator = ActivityMonitor.getHeartRateHistory(null, true);
 		var next = hrIterator.next();
-		if(next == null)
-			{return 0;}
+		if(next == null || next == 255)
+			{return "-";}
 		else
 			{return next.heartRate;}
 	}
